@@ -2,6 +2,8 @@
 
 Telegram bot and Mini App storefront demo built on Cloudflare Workers, D1, Telegram Bot API, and OpenRouter.
 
+**Language:** [English](README.md) | [Русский](README.ru.md)
+
 > [!IMPORTANT]
 > This repository is a portfolio-style test concept. The store is not real, products are not sold, and the catalog imagery is demo content created for presentation and testing.
 
