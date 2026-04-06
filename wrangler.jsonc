@@ -1,0 +1,40 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "flat-brook-a0f7",
+  "main": "cloudflare/src/worker.ts",
+  "compatibility_date": "2026-03-06",
+  "workers_dev": true,
+  "vars": {
+    "WORKER_PUBLIC_URL": "https://flat-brook-a0f7.zimoaiart.workers.dev",
+    "OPENROUTER_MODEL": "meta-llama/llama-3.3-70b-instruct:free",
+    "OPENROUTER_FALLBACK_MODELS": "arcee-ai/trinity-large-preview:free,stepfun/step-3.5-flash:free,openrouter/free"
+  },
+  "assets": {
+    "directory": "./public"
+  },
+  "queues": {
+    "producers": [
+      {
+        "binding": "NOTIFY_QUEUE",
+        "queue": "premium-style-events",
+        "delivery_delay": 0
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "premium-style-events",
+        "max_batch_size": 10,
+        "max_batch_timeout": 5,
+        "max_retries": 3,
+        "dead_letter_queue": "premium-style-events-dlq"
+      }
+    ]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "premium-style-bot-db",
+      "database_id": "6252bb33-c7b4-4db7-b43c-cda2756dce28"
+    }
+  ]
+}

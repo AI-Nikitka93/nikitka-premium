@@ -1,0 +1,39 @@
+name: Feature request
+description: Propose a new capability or improvement for the repository.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+      description: What user or maintainer problem should this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the change you want to see.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Share any alternatives or workarounds you considered.
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact area
+      options:
+        - Telegram bot UX
+        - Mini App UX
+        - AI manager
+        - Admin workflow
+        - Deployment / infrastructure
+        - Documentation
+        - Other
+    validations:
+      required: true

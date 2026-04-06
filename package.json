@@ -1,0 +1,21 @@
+{
+  "name": "premium-style-bot-cloudflare",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "cf:build": "tsc --noEmit",
+    "cf:dev": "wrangler dev",
+    "cf:deploy": "wrangler deploy",
+    "cf:webhook": "node scripts/set-cloudflare-webhook.mjs",
+    "cf:profile": "node scripts/set-cloudflare-profile.mjs",
+    "cf:migrate:remote": "npx wrangler d1 migrations apply premium-style-bot-db --remote",
+    "cf:migrate:local": "npx wrangler d1 migrations apply premium-style-bot-db --local",
+    "cf:seed:remote": "npx wrangler d1 execute premium-style-bot-db --remote --file cloudflare/seeds/0002_belarus_catalog.sql"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260301.0",
+    "typescript": "^5.9.2",
+    "wrangler": "^4.56.0"
+  }
+}
