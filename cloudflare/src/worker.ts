@@ -3,6 +3,7 @@ import {
   addToCart,
   clearCart,
   clearDialogState,
+  countRecentAuditEvents,
   createOrderFromCart,
   createSupportRequest,
   ensureSchema,
@@ -178,6 +179,20 @@ function storefrontUrl(env: Env): string | undefined {
 
 function paymentsCurrency(env: Env): string {
   return env.PAYMENTS_CURRENCY?.trim().toUpperCase() || "XTR";
+}
+
+const BOT_AI_LIMIT_WINDOW_MINUTES = 10;
+const BOT_AI_LIMIT_REQUESTS = 12;
+const MINIAPP_AI_LIMIT_WINDOW_MINUTES = 10;
+const MINIAPP_AI_LIMIT_REQUESTS = 6;
+
+async function isAiRateLimited(env: Env, eventType: string, userId: number, limit: number, minutes: number): Promise<boolean> {
+  const recent = await countRecentAuditEvents(env, {
+    eventType,
+    userId,
+    minutes
+  });
+  return recent >= limit;
 }
 
 async function buildAssistantCatalogContext(env: Env, userId?: number): Promise<string> {
@@ -682,6 +697,19 @@ async function handleDialogText(env: Env, tg: TelegramApi, message: TelegramMess
     if (isBotNavigationText(message.text)) {
       await clearDialogState(env, message.from.id);
       return false;
+    }
+    if (await isAiRateLimited(env, "bot_ai_manager", message.from.id, BOT_AI_LIMIT_REQUESTS, BOT_AI_LIMIT_WINDOW_MINUTES)) {
+      await writeAuditEvent(env, "bot_ai_manager_rate_limited", message.from.id, null, {
+        limit: BOT_AI_LIMIT_REQUESTS,
+        windowMinutes: BOT_AI_LIMIT_WINDOW_MINUTES
+      });
+      await tg.sendMessage({
+        chat_id: message.chat.id,
+        text:
+          "AI-менеджер временно на паузе из-за лимита запросов. Подождите несколько минут и попробуйте снова.",
+        reply_markup: aiHelpKeyboard(storefrontUrl(env))
+      });
+      return true;
     }
     const history = readAiDialogHistory(dialog.payload);
     const [catalogContext, catalogItems] = await Promise.all([
@@ -1470,10 +1498,32 @@ async function handleMiniAppRequest(request: Request, env: Env): Promise<Respons
   }
 
   if (request.method === "POST" && url.pathname === "/api/miniapp/assistant") {
+    if (!userId || auth.demo) {
+      return json(
+        {
+          ok: false,
+          error: "AI manager is available only inside the Telegram bot for authenticated users."
+        },
+        403
+      );
+    }
+    if (await isAiRateLimited(env, "miniapp_ai_manager", userId, MINIAPP_AI_LIMIT_REQUESTS, MINIAPP_AI_LIMIT_WINDOW_MINUTES)) {
+      await writeAuditEvent(env, "miniapp_ai_manager_rate_limited", userId, null, {
+        limit: MINIAPP_AI_LIMIT_REQUESTS,
+        windowMinutes: MINIAPP_AI_LIMIT_WINDOW_MINUTES
+      });
+      return json(
+        {
+          ok: false,
+          error: "AI manager is temporarily rate limited. Please try again later in the bot chat."
+        },
+        429
+      );
+    }
     const body = await readJson<{ message: string; history?: Array<{ role: string; text: string }> }>(request);
     const [catalogContext, catalogItems] = await Promise.all([
-      buildAssistantCatalogContext(env, userId ?? undefined),
-      buildAssistantCatalogItems(env, userId ?? undefined)
+      buildAssistantCatalogContext(env, userId),
+      buildAssistantCatalogItems(env, userId)
     ]);
     const answer = await answerStoreAssistant(env, {
       message: body.message,

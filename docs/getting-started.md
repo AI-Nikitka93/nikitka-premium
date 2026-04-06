@@ -52,6 +52,14 @@ Required keys:
 - `WORKER_PUBLIC_URL`
 - `OPENROUTER_API_KEY`
 
+For public repositories, prefer keeping production values out of `.dev.vars` entirely and store real values in Cloudflare secrets:
+
+```powershell
+npx wrangler secret put BOT_TOKEN
+npx wrangler secret put WEBHOOK_SECRET_TOKEN
+npx wrangler secret put OPENROUTER_API_KEY
+```
+
 Optional AI routing keys:
 
 - `OPENROUTER_MODEL`
@@ -162,3 +170,5 @@ If Telegram returns a rate-limit response, wait briefly and run the command agai
 ### Mini App works only partially in the browser
 
 That is expected in demo mode. Full cart, favorites, and checkout flows depend on Telegram-authenticated Mini App requests.
+
+The AI manager is also intentionally kept out of anonymous public demo traffic to avoid key abuse.

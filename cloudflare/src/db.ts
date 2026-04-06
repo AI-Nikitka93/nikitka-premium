@@ -523,6 +523,45 @@ export async function listRecentAuditEvents(env: Env, limit = 10): Promise<Audit
   }));
 }
 
+export async function countRecentAuditEvents(
+  env: Env,
+  params: {
+    eventType: string;
+    minutes: number;
+    userId?: number | null;
+    entityId?: string | null;
+  }
+): Promise<number> {
+  const conditions = [
+    "event_type = ?",
+    "created_at >= datetime('now', ?)"
+  ];
+  const bindings: unknown[] = [
+    params.eventType,
+    `-${Math.max(1, Math.floor(params.minutes))} minutes`
+  ];
+
+  if (typeof params.userId === "number") {
+    conditions.push("user_id = ?");
+    bindings.push(params.userId);
+  }
+
+  if (params.entityId?.trim()) {
+    conditions.push("entity_id = ?");
+    bindings.push(params.entityId.trim());
+  }
+
+  const row = await first<{ count: number }>(
+    env,
+    `SELECT COUNT(*) AS count
+     FROM audit_events
+     WHERE ${conditions.join(" AND ")}`,
+    ...bindings
+  );
+
+  return row?.count ?? 0;
+}
+
 export async function listCategories(env: Env): Promise<Array<{ slug: string; title: string }>> {
   return all(
     env,

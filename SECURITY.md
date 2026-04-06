@@ -33,6 +33,7 @@ Examples of in-scope security issues:
 - checkout or payment-flow abuse
 - D1 data exposure
 - injection vulnerabilities
+- abuse paths that let anonymous users consume the maintainer's AI quota
 
 Examples of out-of-scope issues for this demo project:
 
@@ -43,3 +44,13 @@ Examples of out-of-scope issues for this demo project:
 ## Disclosure Expectations
 
 Because this is a portfolio/demo repository, response times are best-effort rather than SLA-backed. Please allow reasonable time for triage and remediation.
+
+## If A Secret Leaks
+
+Rotate it immediately.
+
+- Telegram bot token: revoke and reissue it in `@BotFather`
+- OpenRouter key: rotate it in OpenRouter
+- Cloudflare secrets: replace them with `wrangler secret put ...`
+
+Do not rely on deleting a bad commit alone. Once a secret has been pushed to a public repository, treat it as compromised.

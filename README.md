@@ -5,6 +5,9 @@ Telegram bot and Mini App storefront demo built on Cloudflare Workers, D1, Teleg
 > [!IMPORTANT]
 > This repository is a portfolio-style test concept. The store is not real, products are not sold, and the catalog imagery is demo content created for presentation and testing.
 
+> [!WARNING]
+> This repository is source-available for review, not open-source for reuse. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md).
+
 ![NIKITKA PREMIUM Mini App visual](public/miniapp/hero-background.jpeg)
 
 ## Quick Links
@@ -123,12 +126,15 @@ For a fuller system map, see [Architecture](docs/architecture.md).
 - [Contributing](CONTRIBUTING.md)
 - [Support](SUPPORT.md)
 - [Security Policy](SECURITY.md)
+- [Public Repo Safety](docs/public-repo-safety.md)
 - [Changelog](CHANGELOG.md)
+- [Usage Notice](NOTICE.md)
 
 ## Limitations
 
 - This is not a real store or payment operation.
 - Public demo mode does not expose full cart, favorites, or checkout state outside Telegram.
+- The AI manager is intentionally available only inside the Telegram bot, not to anonymous public demo traffic.
 - Full end-to-end Telegram automation tests are not included yet.
 - Some repository metadata still has to be configured in GitHub UI, not in source files.
 
@@ -138,4 +144,4 @@ Use the issue templates for bugs, features, and docs changes. For security-sensi
 
 ## License
 
-This repository is available under the [MIT License](LICENSE).
+This repository is published under an [UNLICENSED](LICENSE) posture for portfolio review only. Source is visible, but reuse and redeployment are not permitted without written permission. See [NOTICE.md](NOTICE.md).

@@ -45,7 +45,8 @@ The repository now presents well as a public portfolio/demo project, not as a ge
 | Surface | Status | Notes |
 | --- | --- | --- |
 | `README.md` | Added/rewritten | Cloudflare-first landing page |
-| `LICENSE` | Added | MIT chosen as the default permissive license for public reuse |
+| `LICENSE` | Added | `UNLICENSED` posture to keep the repository public for review but not licensed for reuse |
+| `NOTICE.md` | Added | Explicit source-available portfolio boundary and branding restrictions |
 | `CONTRIBUTING.md` | Added | Local setup, checks, PR expectations |
 | `CODE_OF_CONDUCT.md` | Added | Contributor Covenant-based baseline |
 | `SECURITY.md` | Added | Private disclosure guidance |

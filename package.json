@@ -2,6 +2,7 @@
   "name": "premium-style-bot-cloudflare",
   "version": "1.0.0",
   "private": true,
+  "license": "UNLICENSED",
   "type": "module",
   "scripts": {
     "cf:build": "tsc --noEmit",
