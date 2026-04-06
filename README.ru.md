@@ -20,6 +20,10 @@
 - Healthcheck: <https://flat-brook-a0f7.zimoaiart.workers.dev/healthz>
 - Webhook endpoint: <https://flat-brook-a0f7.zimoaiart.workers.dev/telegram/webhook>
 
+## Связанный проект
+
+- Отдельный companion-сайт: <https://github.com/AI-Nikitka93/nikitka-premium-web>
+
 ## Что это такое
 
 `NIKITKA PREMIUM` — это solo-built, AI-assisted проект Telegram-витрины в визуальном направлении Belarus Heritage.

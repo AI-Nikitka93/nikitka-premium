@@ -20,6 +20,10 @@ Telegram bot and Mini App storefront demo built on Cloudflare Workers, D1, Teleg
 - Healthcheck: <https://flat-brook-a0f7.zimoaiart.workers.dev/healthz>
 - Webhook endpoint: <https://flat-brook-a0f7.zimoaiart.workers.dev/telegram/webhook>
 
+## Related Project
+
+- Companion storefront website: <https://github.com/AI-Nikitka93/nikitka-premium-web>
+
 ## What It Does
 
 `NIKITKA PREMIUM` is a solo-built, AI-assisted Telegram-first shopping experience around a Belarus Heritage visual direction.
