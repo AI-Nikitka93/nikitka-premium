@@ -20,7 +20,11 @@ Telegram bot and Mini App storefront demo built on Cloudflare Workers, D1, Teleg
 
 ## What It Does
 
-`NIKITKA PREMIUM` packages a Telegram-first shopping experience around a Belarus Heritage visual direction:
+`NIKITKA PREMIUM` is a solo-built, AI-assisted Telegram-first shopping experience around a Belarus Heritage visual direction.
+
+It is designed as a portfolio case that shows how a developer can go from idea to a working bot and Mini App in a short timeframe, even without prior commercial experience in this exact stack.
+
+`NIKITKA PREMIUM` packages:
 
 - Telegram bot with catalog, search, favorites, cart, checkout, and admin flow
 - Telegram Mini App storefront with mobile-first product browsing
@@ -36,6 +40,20 @@ This project is a public demo case for shipping a production-like Telegram comme
 - a realistic checkout and admin workflow
 - AI-assisted product guidance inside Telegram
 - a deployable Cloudflare Workers architecture without paid infrastructure assumptions
+
+## What This Demonstrates
+
+This repository is meant to show employers and clients that I can:
+
+- learn a new stack quickly and turn it into a working product surface
+- build a Telegram bot and Mini App solo with AI-assisted development
+- connect backend logic, UI, data storage, and AI features into one coherent flow
+- take a project from concept to live public demo in a short time
+- package the result as a professional, reviewable GitHub portfolio project
+
+## My Role
+
+This is a solo portfolio build. I used AI as an accelerator, but the project direction, integration work, deployment flow, repository packaging, and final implementation decisions were mine.
 
 ## Quickstart
 
